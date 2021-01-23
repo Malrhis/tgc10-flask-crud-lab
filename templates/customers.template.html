@@ -8,7 +8,6 @@
             <th>First Name</th>
             <th>Last Name</th>
             <th>Email</th>
-            <th>Edit Link</th>
         </tr>
     </thead>
     {% for c in customers %}
@@ -16,7 +15,10 @@
         <td>{{c.first_name}}</td>
         <td>{{c.last_name}}</td>
         <td>{{c.email}}</td>
-        <td><a href="{{ url_for('show_edit_customer', customer_id=c.id)}}">Edit</a></td>
+        <td>
+            <a href="{{ url_for('show_edit_customer', customer_id=c.id)}}" class="btn btn-primary">Edit</a>
+            <a href="{{ url_for('show_delete_customer', customer_id=c.id)}}" class="btn btn-danger">Delete</a>
+        </td>
     </tr>
     {% endfor %}
 </table>

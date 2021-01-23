@@ -102,6 +102,27 @@ def process_edit_customer(customer_id):
         return "Customer does not exist"
 
 
+@app.route('/customers/<customer_id>/delete')
+def show_delete_customer(customer_id):
+    customer = find_customer_by_id(customer_id)
+    if customer:
+        return render_template('show_delete_customer.template.html',
+                               customer=customer)
+    else:
+        return "Customer not found!"
+
+
+@app.route('/customers/<customer_id>/delete', methods=["POST"])
+def process_delete_customer(customer_id):
+    customer_to_delete = find_customer_by_id(customer_id)
+    database.remove(customer_to_delete)
+
+    with open('customers.json', 'w') as fp:
+        json.dump(database, fp)
+
+    return redirect(url_for('show_customers'))
+
+
 # "magic code" -- boilerplate
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
