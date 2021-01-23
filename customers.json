@@ -1,0 +1,23 @@
+[
+    {
+        "id":1,
+        "first_name":"Cindy",
+        "last_name":"Tan",
+        "email":"cindytan@somewhere.com",
+        "send_marketing_material":true
+    },
+    {
+        "id":2,
+        "first_name":"John",
+        "last_name":"Doe",
+        "email":"johndoe@somewhere.com",
+        "send_marketing_material":true
+    },
+    {
+        "id":3,
+        "first_name":"Ethan",
+        "last_name":"Wong",
+        "email":"ethanwong@somewhere.com",
+        "send_marketing_material":true
+    }
+]
