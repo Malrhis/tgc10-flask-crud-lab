@@ -26,7 +26,7 @@ def show_add_customers():
     return render_template('add_customer.template.html')
 
 
-@app.route('/customers/add', methods = ["POST"])
+@app.route('/customers/add', methods=["POST"])
 def process_add_customer():
     print(request.form)
     first_name = request.form.get('first_name')
@@ -47,7 +47,7 @@ def process_add_customer():
     database.append(new_customer)
 
     # save the entire list into the json file. write the file
-    with open ('database.json','w') as fp:
+    with open('customers.json', 'w') as fp:
         json.dump(database, fp)
 
     return "data received"
