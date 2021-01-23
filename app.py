@@ -11,6 +11,14 @@ with open('customers.json') as fp:
 print(database)
 
 
+def find_customer_by_id(customer_id):
+    customer = None
+    for each_customer in database:
+        if each_customer['id'] == int(customer_id):
+            customer = each_customer
+    return customer
+
+
 @app.route('/')
 def home():
     return render_template('home.template.html')
@@ -50,7 +58,48 @@ def process_add_customer():
     with open('customers.json', 'w') as fp:
         json.dump(database, fp)
 
-    return "data received"
+    return redirect(url_for('show_customers'))
+
+
+@app.route('/customers/<customer_id>/edit')
+def show_edit_customer(customer_id):
+    # customer_id will refer to the id of the customer
+    # that we want to edit
+    # important that all customers have a unique id
+
+    # 1. retrieve the customer that we want to edit
+
+    # customer_to_edit = None
+    # for each_customer in database:
+    #     if each_customer['id'] == int(customer_id):
+    #         customer_to_edit = each_customer
+    customer_to_edit = find_customer_by_id(customer_id)
+
+    # 2. if the customer exists, show the form to edit
+    if customer_to_edit:
+        return render_template('edit_customer.template.html',
+                               customer=customer_to_edit)
+    else:
+        return "Customer not found"
+
+
+@app.route('/customers/<customer_id>/edit', methods=["POST"])
+def process_edit_customer(customer_id):
+    customer = find_customer_by_id(customer_id)
+    if customer:
+        # extract out the values from the form
+        customer['first_name'] = request.form.get('first_name')
+        customer['last_name'] = request.form.get('last_name')
+        customer['email'] = request.form.get('email')
+        customer['send_marketing_material'] = request.form.get(
+            'send_marketing_material')
+
+        with open('customers.json', 'w') as fp:
+            json.dump(database, fp)
+
+        return redirect(url_for('show_customers'))
+    else:
+        return "Customer does not exist"
 
 
 # "magic code" -- boilerplate
