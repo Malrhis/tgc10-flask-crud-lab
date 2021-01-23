@@ -20,6 +20,16 @@ def show_customers():
     return render_template('customers.template.html', customers=database)
 
 
+@app.route('customers/add')
+def show_add_customers():
+    return render_template('add_customer.template.html')
+
+
+@app.route('/customers/add')
+def process_add_customer():
+    print(request.form)
+    return "data received"
+
 # "magic code" -- boilerplate
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
