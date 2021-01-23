@@ -92,7 +92,7 @@ def process_edit_customer(customer_id):
         customer['last_name'] = request.form.get('last_name')
         customer['email'] = request.form.get('email')
         customer['send_marketing_material'] = request.form.get(
-            'send_marketing_material')
+            'can_send')
 
         with open('customers.json', 'w') as fp:
             json.dump(database, fp)
